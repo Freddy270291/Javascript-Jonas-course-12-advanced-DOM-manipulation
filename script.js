@@ -231,3 +231,31 @@ document.querySelector('.nav').addEventListener('click', function (e) {
 
 // We can stop the event propagation: in the event, call: e.stopPropagation()
 */
+
+// DOM TRAVERSING
+// It is like walking through the DOM: we can select an element based on another element.
+// For example, a direct child/parent element, or sometimes we don't know the structure of the DOM at that time
+
+// Going downwards: selecting child element
+// first method: querySelector on the element (not the document)
+console.log(h1.querySelector('.highlight'));
+// second method: childNodes (we get every single Nodes)
+console.log(h1.childNodes);
+console.log(h1.children); // We get the 3 elements inside the h1, not all the Nodes
+// third method: first and last element child
+console.log(h1.firstElementChild);
+console.log(h1.lastElementChild);
+
+// Going upwards: selecting parent element
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+// Also NOT direct parent:  closest()
+console.log(h1.closest('.header'));
+
+// Going sideways: selecting siblings element (only previous and next one)
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+// with nodes:
+console.log(h1.previousSibling);
+console.log(h1.nextSibling);
