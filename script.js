@@ -90,6 +90,31 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 
+// TABBED COMPONENT
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab'); // Search for the closest operation tab!
+
+  // Active class button
+
+  if (!clicked) return; // GUARD CLAUSE: If stated that returns earlier if some condition is not matched, so we don't have an error
+  tabs.forEach(t => t.classList.remove('operations__tab--active')); // Clearing the class on all of them
+  clicked.classList.add('operations__tab--active'); // Add the active class to the clicked tab
+
+  // Activate the content area
+  tabsContent.forEach(t => t.classList.remove('operations__content--active'));
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active'); // Senza questa classe, la tab ha "display: none". con questa classe invece è Grid, quindi si vede
+});
+
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+
 // SELECTING ELEMENTS
 
 /*
@@ -232,6 +257,7 @@ document.querySelector('.nav').addEventListener('click', function (e) {
 // We can stop the event propagation: in the event, call: e.stopPropagation()
 */
 
+/*
 // DOM TRAVERSING
 // It is like walking through the DOM: we can select an element based on another element.
 // For example, a direct child/parent element, or sometimes we don't know the structure of the DOM at that time
@@ -259,3 +285,4 @@ console.log(h1.nextElementSibling);
 // with nodes:
 console.log(h1.previousSibling);
 console.log(h1.nextSibling);
+*/
