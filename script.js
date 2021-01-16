@@ -6,6 +6,11 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const nav = document.querySelector('.nav');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+const header = document.querySelector('.header');
 
 ///////////////////////////////////////
 // Modal window
@@ -90,10 +95,8 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 
+//////////////////////////////////////////////////////
 // TABBED COMPONENT
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.operations__content');
 
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab'); // Search for the closest operation tab!
@@ -110,6 +113,68 @@ tabsContainer.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active'); // Senza questa classe, la tab ha "display: none". con questa classe invece è Grid, quindi si vede
 });
+
+/////////////////////////////////////////////////////////
+// MENU FADE ANIMATION
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+// Passing an argument into an handler
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+/////////////////////////////////////////////////////////
+// STICKY NAVIGATION
+/*
+const initialCoords = section1.getBoundingClientRect();
+
+// The scrool event is available on the window, not document
+window.addEventListener('scroll', function (e) {
+  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
+*/
+// Sticky navigation with intersection observer API: this API allows our code to observe changes to the way a certain target intercets another element or the way it intercets the viewport
+/*
+const obsCallback = function (entries, observer) {
+  if (entries.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+const obsOptions = {
+  root: null, // element we want our target element to intercept,null = the viewport
+  threshold: 0.1, // the percent of interception at with the observer callback will be called
+};
+
+const observer = new IntersectionObserver(obsCallback, obsOptions);
+observer.observe(section1);
+*/
+
+const navHeight = nav.getBoundingClientRect().height;
+const stickyNav = function (entries) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`, // height of the navbar
+});
+headerObserver.observe(header);
+
+/////////////////////////////////////////////////////////
+// REVEALING ELEMENTS ON SCROLL
 
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
