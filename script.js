@@ -468,3 +468,26 @@ console.log(h1.nextElementSibling);
 console.log(h1.previousSibling);
 console.log(h1.nextSibling);
 */
+
+/*
+// DOM CONTENT LOADED - fired as soon as the HTML has been parsed
+// Listen to this event:
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('HTML parsed and DOM tree built', e);
+});
+
+// We want our code to be executed after the DOM is ready, we can use the <script> putting it at the end of the HTML
+
+// Load event: fired as soon as also the images and the other external resources are loaded
+window.addEventListener('load', function (e) {
+  console.log('Page fully loaded', e);
+});
+
+// BEFOREUNLOAD event - Fired immediately before the user is leaving the page
+// We can use it to ask if they are sure they want to leave the page
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  console.log(e);
+  e.returnValue = '';  // Gives a generic message
+});
+*/
